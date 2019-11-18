@@ -51,7 +51,6 @@ module.exports = {
         return response
           .json()
           .then(function(json) {
-            
             const botAnswer = `🔎 In the region of **${capitalize(
               json.data.location.region.precise
             )}**, in the territory of **${capitalize(
