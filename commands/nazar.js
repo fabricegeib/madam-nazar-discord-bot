@@ -38,6 +38,7 @@ const getCycleDay = () => {
   return dayCycle;
 };
 
+
 module.exports = {
   name: "nazar",
   description: "Respond with Madam Nazar location",
