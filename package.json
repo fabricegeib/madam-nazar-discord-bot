@@ -2,8 +2,15 @@
   "name": "madam-nazar-discord-bot",
   "version": "1.0.0",
   "description": "madam-nazar-discord-bot by @iamfabriceg & @lukyvj",
+   "main": "index.js",
+  "repository": "null",
+  "author": "@LukyVj",
   "scripts": {
-    "start": "node index.js"},
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "10.11.0"
+  },
   "dependencies": {
     "discord.js": "^11.5.1",
     "fs": "^0.0.1-security",
