@@ -24,11 +24,11 @@ module.exports = {
           console.log(json.data.location.image);
           const botAnswer = `🚩 Today ${formatDateTweet(
             new Date()
-          )} 📅, Madam Nazar was found in the region of **${capitalize(
+          )} 📅\nMadam Nazar was found in the region of **${capitalize(
             json.data.location.region.precise
-          )}** in the **${capitalize(json.data.location.region.name)}** territory ${
-            json.data.location.image.normal.full
-          }`;
+          )}** \nIn the **${capitalize(
+            json.data.location.region.name
+          )}** territory. \n🗺  ${json.data.location.image.normal.full}`;
               message.channel.send(botAnswer);
 
         });
