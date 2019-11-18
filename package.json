@@ -2,7 +2,7 @@
   "name": "madam-nazar-discord-bot",
   "version": "1.0.0",
   "description": "madam-nazar-discord-bot by @iamfabriceg & @lukyvj",
-   "main": "index.js",
+  "main": "index.js",
   "repository": "null",
   "author": "@LukyVj",
   "scripts": {
@@ -14,6 +14,9 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "fs": "^0.0.1-security",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.3"
   }
 }

@@ -1,5 +1,9 @@
 const fs = require("fs");
 const Discord = require("discord.js");
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3001;
+
 const { prefix, token } = require("./config.json");
 
 const client = new Discord.Client();
@@ -14,40 +18,45 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!\nI am ready !`);
+app.listen(port, function() {
+  console.log("Runnning on " + port);
 
-  client.user.setActivity("madamnazar.io");
-});
+  client.on("ready", () => {
+    console.log(`Logged in as ${client.user.tag}!\nI am ready !`);
 
-client.on("message", message => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+    client.user.setActivity("madamnazar.io");
+  });
 
-  console.log(message.content);
+  client.on("message", message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
+    console.log(message.content);
 
-  if (!client.commands.has(commandName)) return;
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
 
-  const command = client.commands.get(commandName);
+    if (!client.commands.has(commandName)) return;
 
-  if (command.args && !args.length) {
-    let reply = `You didn't provide any arguments, ${message.author}!`;
+    const command = client.commands.get(commandName);
 
-    if (command.usage) {
-      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+    if (command.args && !args.length) {
+      let reply = `You didn't provide any arguments, ${message.author}!`;
+
+      if (command.usage) {
+        reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+      }
+
+      return message.channel.send(reply);
     }
 
-    return message.channel.send(reply);
-  }
-
-  try {
-    command.execute(message, args);
-  } catch (error) {
-    console.error(error);
-    message.reply("there was an error trying to execute that command!");
-  }
+    try {
+      command.execute(message, args);
+    } catch (error) {
+      console.error(error);
+      message.reply("there was an error trying to execute that command!");
+    }
+  });
 });
+module.exports = app;
 
 client.login(token);
