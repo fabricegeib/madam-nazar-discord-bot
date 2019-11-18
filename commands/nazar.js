@@ -39,7 +39,7 @@ const getCycleDay = () => {
 };
 
 module.exports = {
-  name: "nazar?",
+  name: "nazar",
   description: "Respond with Madam Nazar location",
   execute(message, args) {
     fetch(
