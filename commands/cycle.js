@@ -40,7 +40,7 @@ const getCycleDay = () => {
 
 const getColor = day => {
   let color;
-  switch(day) {
+  switch (day) {
     case 1:
       color = 0x2e97d1;
       break;
@@ -48,46 +48,24 @@ const getColor = day => {
       color = 0xe88024;
       break;
     case 3:
-      color= 0xc536ab
+      color = 0xc536ab;
       break;
-    default: 
-      return false
-  } 
+    default:
+      return false;
+  }
   return color;
-}
+};
 
 module.exports = {
   name: "cycle",
   description: "Respond with Current cycle",
   execute(message, args) {
-    fetch(
-      "https://madam-nazar-location-api.herokuapp.com/cycle/current"
-    ).then(function(response) {
-      var contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        return response
-          .json()
-          .then(function(json) {
-
-            const embed = new RichEmbed()
-              .setURL("https://madamnazar.io/")
-              .addField("Cycle/Day", `**${getCycleDay()}**`, true)
-              .setColor(getColor(json.data))
-              .setTimestamp()
-              .setFooter(
-                "Find more resources on MadamNazar.io"
-              );
-            message.channel.send(embed);
-          })
-          .catch(err => {
-            console.log(err);
-            message.channel.send(`⚠️ Problem occured: **${err}**`);
-          });
-      } else {
-        message.channel.send(
-          "No JSON found! Please contact @iamfabriceg#6920 or @LukyVj#1181"
-        );
-      }
-    });
+    const embed = new RichEmbed()
+      .setURL("https://madamnazar.io/")
+      .addField("Cycle/Day", `**${getCycleDay()}**`, true)
+      .setColor(getColor(getCycleDay()))
+      .setTimestamp()
+      .setFooter("Find more resources on MadamNazar.io");
+    message.channel.send(embed);
   }
 };
