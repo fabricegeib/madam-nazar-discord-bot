@@ -1,6 +1,11 @@
 {
+  "name": "madam-nazar-discord-bot",
+  "version": "0.1",
+  "main": "index.js",
+  "author": "Fabrce Geib",
   "dependencies": {
     "discord.js": "^11.5.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "node-fetch": "^2.6.0"
   }
 }
