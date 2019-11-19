@@ -38,6 +38,23 @@ const getCycleDay = () => {
   return dayCycle;
 };
 
+const getColor = day => {
+  let color;
+  switch (day) {
+    case 1:
+      color = 0x2e97d1;
+      break;
+    case 2:
+      color = 0xe88024;
+      break;
+    case 3:
+      color = 0xc536ab;
+      break;
+    default:
+      return false;
+  }
+  return color;
+};
 
 module.exports = {
   name: "nazar",
@@ -62,7 +79,7 @@ module.exports = {
               .setURL("https://madamnazar.io/")
               .addField("Cycle/Day", getCycleDay(), true)
               .addField("🗓 Today ", `${formatDateTweet(new Date())}`, true)
-              .setColor(0xff0000)
+              .setColor(getColor(getCycleDay()))
               .setImage(json.data.location.image.normal.full)
               .setDescription(botAnswer)
               .setTimestamp()
