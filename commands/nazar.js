@@ -38,44 +38,35 @@ const getCycleDay = () => {
   return dayCycle;
 };
 
-const getColor = day => {
-  let color;
-  switch(day) {
-    case 1:
-      color = 0x2e97d1;
-      break;
-    case 2:
-      color = 0xe88024;
-      break;
-    case 3:
-      color= 0xc536ab
-      break;
-    default: 
-      return false
-  } 
-  return color;
-}
-
 module.exports = {
-  name: "cycle",
-  description: "Respond with Current cycle",
+  name: "nazar",
+  description: "Respond with Madam Nazar location",
   execute(message, args) {
     fetch(
-      "https://madam-nazar-location-api.herokuapp.com/cycle/current"
+      "https://madam-nazar-location-api.herokuapp.com/location/current"
     ).then(function(response) {
       var contentType = response.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
         return response
           .json()
           .then(function(json) {
+            const botAnswer = `🔎 In the region of **${capitalize(
+              json.data.location.region.precise
+            )}**, in the territory of **${capitalize(
+              json.data.location.region.name
+            )}**.`;
 
             const embed = new RichEmbed()
+              .setTitle(`🚩 Madam Nazar was found!`)
               .setURL("https://madamnazar.io/")
-              .addField("Cycle/Day", `**${getCycleDay()}**`, true)
-              .setColor(getColor(json.data))
+              .addField("Cycle/Day", getCycleDay(), true)
+              .addField("🗓 Today ", `${formatDateTweet(new Date())}`, true)
+              .setColor(0xff0000)
+              .setImage(json.data.location.image.normal.full)
+              .setDescription(botAnswer)
               .setTimestamp()
               .setFooter(
-                "Find more resources on MadamNazar.io"
+                "🔮 Yσυ'ɾҽ ɳσƚ ყҽƚ ƚσσ ɱყʂƚҽɾισυʂ ϝσɾ ɱყ ԋυɱႦʅҽ ƈσɱραɳყ"
               );
             message.channel.send(embed);
           })
